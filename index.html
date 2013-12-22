@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Users</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 class="root"><a href="/CodeFellows/Backbone/">User Manager</a></h1>
+    <div class="page"></div>
+    <div class="col-lg-12">&nbsp;</div>
+    <div class="row">
+        <div class="col-lg-6 error-container">
+
+        </div>
+    </div>
+</div>
+
+<script type="text/template" id="user-list-template">
+    <a href="#/new" class="btn btn-primary">Add New User</a>
+    <div class="col-lg-12"></div>
+
+    <div class="table-container col-lg-7">
+        <table class="table table-condensed">
+            <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
+                <th>Edit</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <% _.each(users, function(user) { %>
+                <td><%= user.escape('firstname') %></td>
+                <td><%= user.escape('lastname') %></td>
+                <td><%= user.escape('email') %></td>
+                <td><a href="#/edit/<%= user.escape('id') %>" class="btn btn-default">Edit</a></td>
+            </tr>
+            <% }); %>
+            </tbody>
+        </table>
+    </div>
+</script>
+
+<script type="text/template" id="edit-user-template">
+    <form class="edit-user-form col-lg-7" role="form">
+        <legend><%= user ? 'Update' : 'Create' %> User</legend>
+        <div class="form-group">
+            <label for="firstname">First Name</label>
+            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name"
+                   value="<%= user ? user.escape('firstname') : '' %>">
+        </div>
+
+        <div class="form-group">
+            <label for="lastname">Last Name</label>
+            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name"
+                   value="<%= user ? user.escape('lastname') : '' %>">
+        </div>
+
+        <div class="form-group">
+            <label for="emailaddress">Email Address</label>
+            <input type="email" class="form-control" id="emailaddress" name="email" placeholder="Email Address"
+                   value="<%= user ? user.escape('email') : '' %>">
+        </div>
+
+        <button type="submit" class="btn btn-default"><%= user ? 'Update' : 'Create' %></button>
+        <% if (user) { %>
+        <input type="hidden" name="id" value="<%= user.escape('id') %>">
+        <button class="btn btn-danger delete">Delete</button>
+        <% }; %>
+    </form>
+</script>
+
+</body>
+
+
+
+<script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.1.2/handlebars.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.0/backbone-min.js"></script>
+<script type="text/javascript" src="js/backbone.localStorage.js"></script>
+<script src="js/app.js"></script>
+</html>
